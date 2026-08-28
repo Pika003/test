@@ -169,6 +169,7 @@ function App() {
         }}
       >
       <h1>Jenkins Test 123</h1>
+      <button style={{display: "none"}} type="button" onClick={()=>setUnreadCount(unreadCount+1)}></button>
       </div>
     </div>
   );
