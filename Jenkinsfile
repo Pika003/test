@@ -5,6 +5,8 @@ pipeline {
         }
     }
 
+    triggers { githubPush() }
+
     stages {
 
         stage('Install Dependencies') {
