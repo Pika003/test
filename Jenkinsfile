@@ -1,17 +1,11 @@
 pipeline {
     agent {
         docker {
-            image 'node:22-bookworm'
+            image 'node:24-bookworm'
         }
     }
 
     stages {
-
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
 
         stage('Install Dependencies') {
             steps {
