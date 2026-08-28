@@ -6,17 +6,16 @@ pipeline {
     }
 
     stages {
-        stage('Environment') {
-            steps {
-                sh 'node --version'
-                sh 'npm --version'
-                sh 'npm config list'
-            }
-        }
 
         stage('Install Dependencies') {
             steps {
                 sh 'npm ci'
+            }
+        }
+
+        stage('Lint') {
+            steps {
+                sh 'npm run lint'
             }
         }
 
@@ -25,5 +24,32 @@ pipeline {
                 sh 'npm run build'
             }
         }
+
+        stage('Deploy to Netlify') {
+            steps {
+                withCredentials([
+                    string(credentialsId: 'netlify-token', variable: 'NETLIFY_AUTH_TOKEN'),
+                    string(credentialsId: 'netlify-site-id', variable: 'NETLIFY_SITE_ID')
+                ]) {
+                    sh '''
+                        npx netlify-cli deploy \
+                            --prod \
+                            --dir=dist \
+                            --site="$NETLIFY_SITE_ID"
+                    '''
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'CI/CD pipeline completed successfully!'
+        }
+
+        failure {
+            echo 'CI/CD pipeline failed!'
+        }
     }
 }
+```
