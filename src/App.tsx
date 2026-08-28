@@ -168,19 +168,7 @@ function App() {
           gap: 10,
         }}
       >
-        <button
-          onClick={() => setUnreadCount((prev) => prev + 1)}
-        >
-          +1 Message
-        </button>
-
-        <button onClick={() => setUnreadCount(0)}>
-          Clear
-        </button>
-
-        <div style={{ color: "white" }}>
-          Unread: {unreadCount}
-        </div>
+      <h1>Jenkins Test</h1>
       </div>
     </div>
   );
